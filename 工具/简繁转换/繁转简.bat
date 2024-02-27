@@ -1,1 +1,0 @@
-python %~dp0tw2s.py %1
