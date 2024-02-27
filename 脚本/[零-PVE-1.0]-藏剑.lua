@@ -1,0 +1,218 @@
+--作者
+ZuoZhe = 'YUI'
+--奇穴
+QiXue = ''
+--其他说明
+ShuoMing = '自动补扶摇 自己跳 锈铁钩锁|景流.天地一|劈山尾鞭 读条50%会 ,输出会暂停3秒'
+
+-- 扶摇状态 0 未起跳 1 起跳  3-顶点 二段 4准备小轻功
+FYZT = 0 --'123'
+FYZT_ARR_time = {} --起跳时间
+--自动扶摇开关
+ZD_FYZT = true
+-- 暂停技能释放到某时间
+ZD_ZT_TIME = time()
+
+function Main()
+    --  ZHIKONG_2()
+
+    if isRun() then
+        if totaprog() > 0.5 and tota('锈铁钩锁|景流.天地一|劈山尾鞭') then
+            suspension(3000)
+            FYZT = 0
+            jump_1()
+        end
+        DPS()
+    end
+end
+
+function DPS()
+    if nobuff('弹跳') and nocd('扶摇直上') then
+        cast('扶摇直上')
+    end
+    -- 战前准备
+    ZQZB()
+    -- 普通技能释放 -- /cast [rage>89] 啸日
+    if mount('问水诀') then
+        QJ()
+        if rage() > 89 then
+            cast('啸日')
+        end
+    end
+    if mount('山居剑意') then
+        ZJ()
+        if rage() < 15 then
+            cast('啸日')
+        end
+    end
+end
+
+-- 是否暂停
+function isRun(arg1, arg2, arg3)
+    return time() >= ZD_ZT_TIME
+end
+-- 暂停 T 毫秒
+function suspension(t)
+    ZD_ZT_TIME = t + time()
+end
+
+-- 一段跳
+function jump_1(params)
+    if FYZT == 0 then
+        -- statements
+        FYZT = 1
+        FYZT_ARR_time[1] = time()
+        jump()
+    end
+    if FYZT == 2 then
+        -- statements
+        FYZT_ARR_time[2] = time()
+        jumpf()
+        FYZT = 3
+    end
+    if FYZT == 4 then
+        FYZT_ARR_time[3] = time()
+        cast('蹑云逐月')
+        cast('凌霄揽胜')
+        cast('瑶台枕鹤')
+        cast('迎风回浪')
+        FYZT = 5
+    end
+    if FYZT == 6 then
+        -- statements
+        jump()
+        FYZT = 7
+    end
+end
+
+--[[***
+  滞空 
+**--]]
+function ZHIKONG_2(xqg)
+    -- print('FYZT',FYZT, FYZT_ARR_time[2], time())
+    -- if FYZT_ARR_time[3] then
+    --     print('FYZT', FYZT, FYZT_ARR_time[2], time())
+    --     print(
+    --         FYZT == 5 and time() - FYZT_ARR_time[3] >= 700 and time() - FYZT_ARR_time[3] <= 2500,
+    --         time(),
+    --         FYZT_ARR_time[3]
+    --     )
+    -- end
+
+    -- 保持滞空
+    if state('跳跃') and last('扶摇直上', 30) and nobuff('弹跳') and jumpc() == 1 and FYZT_ARR_time[1] == nil then
+        FYZT_ARR_time[1] = time()
+        FYZT = 1.5
+        if isRun() then
+            suspension(4000)
+        end
+    end
+    if
+        state('跳跃') and last('扶摇直上', 30) and nobuff('弹跳') and jumpc() == 1 and --FYZT == 1 and
+            ((FYZT == 1 and time() - FYZT_ARR_time[1] >= 1600 and time() - FYZT_ARR_time[1] <= 1900) or
+                (FYZT == 1.5 and time() - FYZT_ARR_time[1] >= 1000 and time() - FYZT_ARR_time[1] <= 1900))
+     then
+        FYZT = 2
+        jump_1()
+    end
+
+    if
+        state('跳跃') and last('扶摇直上', 30) and nobuff('弹跳') and jumpc() == 2 and
+            (FYZT == 3 and time() - FYZT_ARR_time[2] >= 600 and time() - FYZT_ARR_time[2] <= 1500)
+     then
+        FYZT = 4
+        jump_1()
+    end
+
+    if (FYZT_ARR_time[3] and FYZT == 5 and time() - FYZT_ARR_time[3] >= 1300 and time() - FYZT_ARR_time[3] <= 2500) then
+        FYZT = 6
+        jump_1()
+    end
+
+    if not (state('跳跃')) and jumpc() == 0 then
+        FYZT = 0
+        FYZT_ARR_time = {}
+    end
+end
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+--[[***
+血量检定 保证自己活着才有输出
+**--]]
+function baoming()
+    -- BUFF检定
+    if statep('缴械时间') > 0 then
+        -- 如果是重剑形态被控制则交啸日
+        cast('啸日')
+    end
+    -- 检测血量 --检测泉云
+    -- 检测奶妈技能 圣手 风袖 王母
+    -- 片玉
+    -- 10%
+    -- 30%
+    -- 50%
+    -- 70%
+end
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+--[[***
+正常输出循环
+**--]]
+function QJ()
+    --     /cast 玉虹贯日
+    cast('梦泉虎跑')
+    cast('平湖断月')
+    cast('黄龙吐翠')
+    cast('听雷')
+    -- /cast [skill_notin_cd:莺鸣柳&rage>65] 啸日
+end
+function ZJ()
+    if nobuff('凤鸣') and rage() < 60 then
+        cast('莺鸣柳')
+    end
+    if dis() < 10 then
+        cast('风来吴山')
+    end
+
+    cast('松舍问霞')
+    cast('云飞玉皇')
+    if nobuff('凤鸣') then
+        cast('听雷')
+    end
+    cast('夕照雷峰')
+end
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+--[[***
+检测血量准备爆发
+**--]]
+function BF()
+end
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+--[[***
+战斗前的准备
+**--]]
+function ZQZB()
+    -- fight() 进战
+    -- 如果 没进战 且不是轻剑状态 则晓日
+    if nofight() and mount('山居剑意') then
+        if horse() then --自己在马上
+            -- statements
+            cast('骑御') --下马
+        end
+        cast('啸日')
+    end
+end
