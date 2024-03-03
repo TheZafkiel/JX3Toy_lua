@@ -1,11 +1,11 @@
---ä½œè€…
+--×÷Õß
 ZuoZhe = "Zafkiel"
---å¥‡ç©´
-QiXue = "_(:Ð·ã‚âˆ )_"
---ç§˜ç±
-MiJi = "æ— "
---å…¶ä»–è¯´æ˜Ž
-ShuoMing = "æ‰‹åŠ¨å¼€[é’ç«¹ç™½çŽ‰ç´¢]æˆ–ä½¿ç”¨**å‘½ä»¤"
+--ÆæÑ¨
+QiXue = "_(:§Ù©f¡Ï)_"
+--ÃØ¼®
+MiJi = "ÎÞ"
+--ÆäËûËµÃ÷
+ShuoMing = "ÊÖ¶¯¿ª[ÇàÖñ°×ÓñË÷]»òÊ¹ÓÃ**ÃüÁî"
 
 
 function Main()
@@ -16,46 +16,46 @@ end
 
 
 function DPS()
-------------------------------------------------æ²¡æœ‰æŒ‚ä»¶çš„åˆ æŽ‰è¿™æ®µ
---æŒ‚ä»¶å›¾æ ‡æ‹–åˆ°æŠ€èƒ½æ ï¼Œactionclickä½¿ç”¨ç¬¬4æŽ’ç¬¬14ä¸ªæŒ‚ä»¶
---ä¸åœ¨é©¬ä¸Š ç”¨å¥—é©¬æ†
-    if nobuff("å¥—é©¬æ†") and  nobuff("éª‘å¾¡")
+------------------------------------------------Ã»ÓÐ¹Ò¼þµÄÉ¾µôÕâ¶Î
+--¹Ò¼þÍ¼±êÍÏµ½¼¼ÄÜÀ¸£¬actionclickÊ¹ÓÃµÚ4ÅÅµÚ14¸ö¹Ò¼þ
+--²»ÔÚÂíÉÏ ÓÃÌ×Âí¸Ë
+    if nobuff("Ì×Âí¸Ë") and  nobuff("ÆïÓù")
     then
     actionclick(4, 14)
     end
 
---èµ¤å…”ä¸“å±ž ä¸Šä¸‹é©¬åˆ¤å®š  æ²¡é’ç«¹ç™½çŽ‰ç´¢çš„åˆ æŽ‰è¿™æ®µ ï¼ˆå¾…ä¼˜åŒ–-èµ¤å…”è¢«æŠ“å¤ªå¿«äº†è¿˜æ²¡å†™å®Œ... ï¼‰
-    if  bufftime("å¥—é©¬æ†") <= 60 and tbufftime("é©»è¶³") >= 30 and tname("èµ¤å…”")
+--³àÍÃ×¨Êô ÉÏÏÂÂíÅÐ¶¨  Ã»ÇàÖñ°×ÓñË÷µÄÉ¾µôÕâ¶Î £¨´ýÓÅ»¯-³àÍÃ±»×¥Ì«¿ìÁË»¹Ã»Ð´Íê... £©
+    if  bufftime("Ì×Âí¸Ë") <= 60 and tbufftime("×¤×ã") >= 30 and tname("³àÍÃ")
     then
-    cbuff("éª‘å¾¡")
+    cbuff("ÆïÓù")
     actionclick(4, 14)
     cast(53)
     end
-------------------------------------------------æ²¡æœ‰æŒ‚ä»¶çš„åˆ æŽ‰è¿™æ®µ
+------------------------------------------------Ã»ÓÐ¹Ò¼þµÄÉ¾µôÕâ¶Î
 
---é¢å‘
+--ÃæÏò
     if
     face() > 120
     then
     turn()
     end
---å¤§äºŽ15å‘å‰
+--´óÓÚ15ÏòÇ°
     if
     dis() > 15
     then
     movef(true)
     turn()
     end
---åœ¨è·ç¦»å†…å¥—é©¬
+--ÔÚ¾àÀëÄÚÌ×Âí
     if
     dis() <= 30
     then
     cast(23312)
     turn(0)
     end
---å¥—é©¬è¯»æ¡åœç§»åŠ¨
+--Ì×Âí¶ÁÌõÍ£ÒÆ¶¯
     if
-    casting("å¥—é©¬") and dis() <= 5
+    casting("Ì×Âí") and dis() <= 5
     then
     movef(false)
     turn()
@@ -64,4 +64,4 @@ function DPS()
 
 end
 -------------------------------
---é˜´å±±    [å°èµ¤]è¯´ï¼šè‰¯é©¹å·²å‡ºå±±ï¼Œå„ä½æœ‰å¿—ä¹‹å£«è¯·åšå¥½å‡†å¤‡ï¼
+--ÒõÉ½    [Ð¡³à]Ëµ£ºÁ¼¾ÔÒÑ³öÉ½£¬¸÷Î»ÓÐÖ¾Ö®Ê¿Çë×öºÃ×¼±¸£¡
