@@ -3,3 +3,6 @@
 <a href="https://github.com/TheZafkiel/JX3Toy_lua/tree/main/%E5%B7%B2%E4%BF%AE%E6%94%B9%E5%8F%AF%E7%94%A8">已修改可用</a>
 <p></p>
 这个目录是修改后可用于jx3toy的
+<p></p>
+目录里的.txt文件是其他插件的加密脚本，大佬可以尝试研究下_(:з」∠)_
+<p></p>
